@@ -1,0 +1,6 @@
+black
+twine
+tox
+pytest
+pytest-cov
+codecov
