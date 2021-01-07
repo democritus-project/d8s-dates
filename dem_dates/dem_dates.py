@@ -221,8 +221,6 @@ def datetime_examples(n=10, *, datetimes_as_strings: bool = True, datetime_strin
 
 def time_struct_to_datetime(struct_time_object):
     """Convert a python time.struct_time object into a datetime object."""
-    import datetime
-
     return datetime.datetime(*struct_time_object[:6])
 
 
