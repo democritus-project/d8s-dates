@@ -3,7 +3,7 @@
 
 from setuptools import setup, find_packages
 
-from dates_and_times import __version__
+from democritus_dates import __version__
 
 with open('README.md') as readme_file:
     readme = readme_file.read()
