@@ -22,7 +22,7 @@ def date_parse_first_argument(func):
 
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
-        from dem_dates import date_parse
+        from dates_and_times import date_parse
 
         date_arg = args[0]
         other_args = args[1:]

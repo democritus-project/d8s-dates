@@ -3,7 +3,7 @@
 
 from setuptools import setup, find_packages
 
-from dem_dates import __version__
+from dates_and_times import __version__
 
 with open('README.md') as readme_file:
     readme = readme_file.read()
@@ -15,14 +15,14 @@ with open('requirements_dev.txt') as requirements_dev_file:
     test_requirements = requirements_dev_file.read().splitlines()
 
 setup(
-    name='dem_dates',
+    name='democritus_dates',
     version=__version__,
     description="Democritus functions for working with dates and times in Python.",
     long_description=readme,
     long_description_content_type="text/markdown",
     author="Floyd Hightower",
     author_email='floyd.hightower27@gmail.com',
-    url='https://github.com/democritus/dem-dates',
+    url='https://github.com/democritus/democritus-dates',
     use_scm_version=True,
     setup_requires=['setuptools_scm'],
     packages=find_packages(exclude=('tests')),
@@ -30,7 +30,7 @@ setup(
     install_requires=requirements,
     license="MIT license",
     zip_safe=True,
-    keywords='dem_dates',
+    keywords='dates,date,times,time,democritus,utility,utils',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
