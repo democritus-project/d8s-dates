@@ -1,7 +1,7 @@
 import datetime
 import time
 
-from dates_and_times import (
+from democritus_dates import (
     date_now,
     time_after,
     time_before,
