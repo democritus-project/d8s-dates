@@ -7,7 +7,7 @@ import sys
 import time
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '.')))
-from temp_utils import number_zero_pad, date_parse_first_argument, string_remove_from_end
+from dates_and_times_temp_utils import number_zero_pad, date_parse_first_argument, string_remove_from_end
 
 # todo: I think there is a better way to provide the data below (e.g. the list of day names and abbreviations)
 d = calendar.day_name
