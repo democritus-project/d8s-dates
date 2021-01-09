@@ -1,3 +1,7 @@
+git+https://github.com/democritus-project/democritus-hypothesis.git#egg=democritus-hypothesis
+git+https://github.com/democritus-project/democritus-regexes.git#egg=democritus-regexes
+git+https://github.com/democritus-project/democritus-timezones.git#egg=democritus-timezones
+hypothesis
 maya
-python-dateutil
 parsedatetime
+python-dateutil

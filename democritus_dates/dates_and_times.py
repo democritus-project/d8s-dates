@@ -48,7 +48,7 @@ STRF_DATA = (
 
 
 def date_string_to_strftime_format(date_string):
-    from regexes import replace
+    from democritus_regexes import replace
 
     for data in STRF_DATA:
         for pattern in data.get('patterns', []):
@@ -134,7 +134,7 @@ def date_now(*, convert_to_current_timezone: bool = False, utc: bool = False):
 @date_parse_first_argument
 def date_convert_to_timezone(date, timezone_string):
     """Convert the given date to the given timezone_string (this will actually **convert** time given date; it will change the hour/day of the date to the given timezone)."""
-    from timezones import pytz_timezone_object
+    from democritus_timezones import pytz_timezone_object
 
     # if the given date does not have a timezone, use the system's timezone
     if date.tzinfo is None:
@@ -149,7 +149,7 @@ def date_make_timezone_aware(datetime_object, timezone_string=None):
     """Make the given datetime_object timezone aware. This function does NOT convert the datetime_object; it will never change the hour/day or any value of the datetime; it will simply make the given datetime timezone aware."""
     if timezone_string:
         # make the date timezone aware using the given timezone_string
-        from timezones import pytz_timezone_object
+        from democritus_timezones import pytz_timezone_object
 
         pytz_timezone_object = pytz_timezone_object(timezone_string)
         timezone_aware_datetime_object = pytz_timezone_object.localize(datetime_object)
@@ -164,7 +164,7 @@ def time_delta_examples(n=10, *, time_deltas_as_strings: bool = True):
     """Return n time deltas."""
     from hypothesis.strategies import timedeltas
 
-    from hypothesis_data import hypothesis_get_strategy_results
+    from democritus_hypothesis import hypothesis_get_strategy_results
 
     time_delta_objects = hypothesis_get_strategy_results(timedeltas, n=n)
     if time_deltas_as_strings:
@@ -177,7 +177,7 @@ def time_examples(n=10, *, times_as_strings: bool = True):
     """Return n times."""
     from hypothesis.strategies import times
 
-    from hypothesis_data import hypothesis_get_strategy_results
+    from democritus_hypothesis import hypothesis_get_strategy_results
 
     time_objects = hypothesis_get_strategy_results(times, n=n)
     if times_as_strings:
@@ -190,7 +190,7 @@ def date_examples(n=10, *, dates_as_strings: bool = True, date_string_format: st
     """Return n dates."""
     from hypothesis.strategies import dates
 
-    from hypothesis_data import hypothesis_get_strategy_results
+    from democritus_hypothesis import hypothesis_get_strategy_results
 
     date_objects = hypothesis_get_strategy_results(dates, n=n)
     if dates_as_strings:
@@ -206,7 +206,7 @@ def datetime_examples(n=10, *, datetimes_as_strings: bool = True, datetime_strin
     """Return n datetimes."""
     from hypothesis.strategies import datetimes
 
-    from hypothesis_data import hypothesis_get_strategy_results
+    from democritus_hypothesis import hypothesis_get_strategy_results
 
     datetime_objects = hypothesis_get_strategy_results(datetimes, n=n)
     if datetimes_as_strings:
