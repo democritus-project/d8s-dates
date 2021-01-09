@@ -7,7 +7,7 @@ import sys
 import time
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '.')))
-from temp_utils import number_zero_pad, date_parse_first_argument
+from temp_utils import number_zero_pad, date_parse_first_argument, string_remove_from_end
 
 # todo: I think there is a better way to provide the data below (e.g. the list of day names and abbreviations)
 d = calendar.day_name
@@ -382,7 +382,6 @@ def time_is():
 def date_to_iso(date, *, timezone_is_utc: bool = False, use_trailing_z: bool = False):
     """Return the ISO 8601 version of the given date as a string (see https://en.wikipedia.org/wiki/ISO_8601)."""
     import datetime
-    from strings import string_remove_from_end
 
     if timezone_is_utc:
         # replace any timezones on the date with UTC - this is not a conversion - it is a hard-replace; if there is a timezone on the given date, it will NOT be *converted* to UTC... the time will remain the same, but the timezone will change to UTC

@@ -31,3 +31,13 @@ def date_parse_first_argument(func):
         return func(parsed_date_arg, *other_args, **kwargs)
 
     return wrapper
+
+
+def string_remove_from_end(input_string, string_to_remove):
+    """Remove the string_to_remove from the end of the input_string."""
+    if input_string.endswith(string_to_remove):
+        desired_string_final_index = len(input_string) - len(string_to_remove)
+        updated_string = input_string[:desired_string_final_index]
+        return updated_string
+    else:
+        return input_string
