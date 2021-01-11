@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 from setuptools import setup, find_packages
 
@@ -30,7 +29,7 @@ setup(
     install_requires=requirements,
     license="MIT license",
     zip_safe=True,
-    keywords='dates,date,times,time,democritus,utility,utils',
+    keywords='dates,date,datetime,times,time,democritus,utility,utils,datetime utility,datetime utils',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
