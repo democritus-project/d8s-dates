@@ -1,6 +1,6 @@
-git+https://github.com/democritus-project/democritus-hypothesis.git#egg=democritus-hypothesis
-git+https://github.com/democritus-project/democritus-regexes.git#egg=democritus-regexes
-git+https://github.com/democritus-project/democritus-timezones.git#egg=democritus-timezones
+democritus-hypothesis @ git+https://github.com/democritus-project/democritus-hypothesis.git#egg=democritus-hypothesis
+democritus-regexes @ git+https://github.com/democritus-project/democritus-regexes.git#egg=democritus-regexes
+democritus-timezones @ git+https://github.com/democritus-project/democritus-timezones.git#egg=democritus-timezones
 hypothesis
 maya
 parsedatetime
