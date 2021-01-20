@@ -2,7 +2,7 @@
 
 from setuptools import setup, find_packages
 
-from democritus_dates import __version__
+__version__ = '2021.01.07'
 
 with open('README.md') as readme_file:
     readme = readme_file.read()
@@ -21,7 +21,7 @@ setup(
     long_description_content_type="text/markdown",
     author="Floyd Hightower",
     author_email='floyd.hightower27@gmail.com',
-    url='https://github.com/democritus/democritus-dates',
+    url='https://github.com/democritus-project/democritus-dates',
     use_scm_version=True,
     setup_requires=['setuptools_scm'],
     packages=find_packages(exclude=('tests')),
