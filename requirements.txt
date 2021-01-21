@@ -1,8 +1,8 @@
-democritus-hypothesis @ git+https://github.com/democritus-project/democritus-hypothesis.git#egg=democritus-hypothesis
-democritus-regexes @ git+https://github.com/democritus-project/democritus-regexes.git#egg=democritus-regexes
-democritus-timezones @ git+https://github.com/democritus-project/democritus-timezones.git#egg=democritus-timezones
+democritus-hypothesis
+democritus-regexes
+democritus-timezones
 hypothesis
+importlib-metadata; python_version < '3.8'
 maya
 parsedatetime
 python-dateutil
-importlib-metadata; python_version < '3.8'
