@@ -17,22 +17,6 @@ def number_zero_pad(num: int, length: int) -> str:
     return zero_padded_number
 
 
-def date_parse_first_argument(func):
-    """."""
-
-    @functools.wraps(func)
-    def wrapper(*args, **kwargs):
-        from dates_and_times import date_parse
-
-        date_arg = args[0]
-        other_args = args[1:]
-
-        parsed_date_arg = date_parse(date_arg)
-        return func(parsed_date_arg, *other_args, **kwargs)
-
-    return wrapper
-
-
 def string_remove_from_end(input_string, string_to_remove):
     """Remove the string_to_remove from the end of the input_string."""
     if input_string.endswith(string_to_remove):

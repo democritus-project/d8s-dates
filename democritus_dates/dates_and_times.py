@@ -2,12 +2,13 @@
 
 import calendar
 import datetime
+import functools
 import os
 import sys
 import time
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '.')))
-from dates_and_times_temp_utils import number_zero_pad, date_parse_first_argument, string_remove_from_end
+from dates_and_times_temp_utils import number_zero_pad, string_remove_from_end
 
 # todo: I think there is a better way to provide the data below (e.g. the list of day names and abbreviations)
 d = calendar.day_name
@@ -65,6 +66,61 @@ def date_string_to_strftime_format(date_string):
     return date_string
 
 
+def date_parse(date, *, convert_to_current_timezone: bool = False):
+    """Parse the given date (can parse dates in most formats) (returns a datetime object)."""
+    if isinstance(date, datetime.datetime) or isinstance(date, datetime.date) or isinstance(date, datetime.time):
+        return date
+
+    # try to parse the date as an epoch datetime (I'm starting with this one because it is the most discrete form of date)
+    try:
+        date = epoch_to_date(date)
+    except ValueError:
+        # try to parse the given date with the dateutil module
+        try:
+            date = _dateutil_parser_parse(date)
+        # if the given date could not be parsed by the dateutil module, try to parse the date using parsedatetime
+        except ValueError:
+            parsed_time_struct, parse_status = _parsedatetime_parse(date)
+
+            # convert the parsed_time_struct to a datetime object and return it
+            if parse_status > 0:
+                date = time_struct_to_datetime(parsed_time_struct)
+            else:
+                message = f'Unable to convert the date "{date}" into a standard date format.'
+                raise RuntimeError(message)
+
+    if convert_to_current_timezone:
+        date = date_make_timezone_aware(date)
+
+    return date
+
+
+def date_now(*, convert_to_current_timezone: bool = False, utc: bool = False):
+    now = datetime.datetime.now()
+
+    if convert_to_current_timezone:
+        now = date_make_timezone_aware(now)
+
+    if utc:
+        now = date_to_utc(now)
+
+    return now
+
+
+def date_parse_first_argument(func):
+    """."""
+
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        date_arg = args[0]
+        other_args = args[1:]
+
+        parsed_date_arg = date_parse(date_arg)
+        return func(parsed_date_arg, *other_args, **kwargs)
+
+    return wrapper
+
+
 @date_parse_first_argument
 def date_2_string(date, date_format_string: str):
     """."""
@@ -117,18 +173,6 @@ def date_year(date):
 # TODO: implement this (and probably similar functions for other time ranges (e.g. nHoursAgo))
 def n_days_ago():
     raise NotImplementedError
-
-
-def date_now(*, convert_to_current_timezone: bool = False, utc: bool = False):
-    now = datetime.datetime.now()
-
-    if convert_to_current_timezone:
-        now = date_make_timezone_aware(now)
-
-    if utc:
-        now = date_to_utc(now)
-
-    return now
 
 
 @date_parse_first_argument
@@ -256,35 +300,6 @@ def _maya_time_parse(date_object, *, convert_to_utc: bool = True):
 def date_read(date_string, *, convert_to_current_timezone: bool = False):
     """Read the given date (if possible)."""
     return date_parse(date_string, convert_to_current_timezone=convert_to_current_timezone)
-
-
-def date_parse(date, *, convert_to_current_timezone: bool = False):
-    """Parse the given date (can parse dates in most formats) (returns a datetime object)."""
-    if isinstance(date, datetime.datetime) or isinstance(date, datetime.date) or isinstance(date, datetime.time):
-        return date
-
-    # try to parse the date as an epoch datetime (I'm starting with this one because it is the most discrete form of date)
-    try:
-        date = epoch_to_date(date)
-    except ValueError:
-        # try to parse the given date with the dateutil module
-        try:
-            date = _dateutil_parser_parse(date)
-        # if the given date could not be parsed by the dateutil module, try to parse the date using parsedatetime
-        except ValueError:
-            parsed_time_struct, parse_status = _parsedatetime_parse(date)
-
-            # convert the parsed_time_struct to a datetime object and return it
-            if parse_status > 0:
-                date = time_struct_to_datetime(parsed_time_struct)
-            else:
-                message = f'Unable to convert the date "{date}" into a standard date format.'
-                raise RuntimeError(message)
-
-    if convert_to_current_timezone:
-        date = date_make_timezone_aware(date)
-
-    return date
 
 
 def epoch_time_now():

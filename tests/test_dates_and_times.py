@@ -31,6 +31,7 @@ from democritus_dates import (
     is_date,
     time_since,
     time_until,
+    date_parse_first_argument,
 )
 
 
@@ -474,3 +475,15 @@ def test_date_to_epoch_1():
     assert isinstance(date_to_epoch(date_now()), int)
     assert float(date_to_epoch(date_now())) > 1540000000
     assert date_to_epoch('January 1, 2010') < date_to_epoch('January 1, 2011')
+
+
+@date_parse_first_argument
+def date_parse_first_argument_test_func(date):
+    return date
+
+
+def test_date_parse_first_argument_1():
+    import datetime
+
+    date = date_parse_first_argument_test_func('3 days ago')
+    assert isinstance(date, datetime.datetime)
