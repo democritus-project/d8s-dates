@@ -6,6 +6,7 @@ import functools
 import os
 import sys
 import time
+import re
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '.')))
 from dates_and_times_temp_utils import number_zero_pad, string_remove_from_end
@@ -49,8 +50,6 @@ STRF_DATA = (
 
 
 def date_string_to_strftime_format(date_string):
-    from democritus_regexes import replace
-
     for data in STRF_DATA:
         for pattern in data.get('patterns', []):
             if pattern in date_string:
@@ -58,7 +57,7 @@ def date_string_to_strftime_format(date_string):
                 break
         else:
             if data.get('regex'):
-                date_string = replace(data['regex'], data['replacement'], date_string)
+                date_string = re.sub(data['regex'], data['replacement'], date_string)
                 # matches = find()
                 # if any(matches):
                 #     date_string = date_string.replace(matches[0], data['replacement'])
