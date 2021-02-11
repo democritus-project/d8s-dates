@@ -1,8 +1,8 @@
 # Democritus Dates
 
 [![PyPI](https://img.shields.io/pypi/v/dem_dates.svg)](https://pypi.python.org/pypi/dem_dates)
-[![Build Status](https://travis-ci.com/democritus-project/democritus-dates.svg?branch=master)](https://travis-ci.com/democritus-project/democritus-dates)
-[![codecov](https://codecov.io/gh/democritus-project/democritus-dates/branch/master/graph/badge.svg?token=V0WOIXRGMM)](https://codecov.io/gh/democritus-project/democritus-dates)
+[![Build Status](https://travis-ci.com/democritus-project/democritus-dates.svg?branch=main)](https://travis-ci.com/democritus-project/democritus-dates)
+[![codecov](https://codecov.io/gh/democritus-project/democritus-dates/branch/main/graph/badge.svg?token=V0WOIXRGMM)](https://codecov.io/gh/democritus-project/democritus-dates)
 
 Democritus functions<sup>[1]</sup> for working with and using dates and times.
 
