@@ -12,6 +12,13 @@ Democritus functions<sup>[1]</sup> for working with and using dates and times.
 
 Coming soon...
 
+### Testing
+
+This project is designed to be tested using [docker][docker] and [docker-compose][docker-compose]. You can run tests using `docker-compose run test`.
+
 ## Credits
 
 This package was created with [Cookiecutter](https://github.com/audreyr/cookiecutter) and Floyd Hightower's [Python project template](https://github.com/fhightower-templates/python-project-template).
+
+[docker]: https://www.docker.com/get-started
+[docker-compose]: https://docs.docker.com/compose/
