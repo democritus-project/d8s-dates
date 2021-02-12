@@ -11,7 +11,7 @@ services:
   # run all the tests
   test:
     <<: *dev
-    command: pytest -v --cov=. --cov-report term-missing
+    command: pytest -v --cov=. --cov-report term-missing --cov-fail-under 90
 
   # run the linters
   lint:
