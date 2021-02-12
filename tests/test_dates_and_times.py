@@ -34,6 +34,8 @@ from democritus_dates import (
     date_parse_first_argument,
 )
 
+"""NOTE: WE ASSUME THAT THE SYSTEM RUNNING THE TESTS IS SET TO THE UTC TIMEZONE (BECAUSE THESE TESTS ARE RUNNING IN DOCKER (OR A CI SYSTEM))."""
+
 
 def test_time_until_1():
     result = time_until('2222-02-22')
@@ -164,7 +166,7 @@ def test_time_waste_1():
     b = time_now()
     assert 3 < b - a < 4
 
-    n = 10
+    n = 1
     a = time_now()
     time_waste(n=n)
     b = time_now()
@@ -205,15 +207,18 @@ def test_time_in_future_1():
 
 
 def test_date_convert_to_timezone_1():
-    now = date_now()
-    assert now.tzinfo is None
+    now = date_now(utc=True)
+    assert now.tzinfo is not None
     utc_date = date_convert_to_timezone(now, 'utc')
     # make sure the hour is not changed when making the date timezone aware
-    assert utc_date.hour != now.hour
+    assert utc_date.hour == now.hour
     assert utc_date.tzinfo is not None
 
+    now = date_now()
     pst_timezone_date = date_convert_to_timezone(now, 'America/Los_Angeles')
+    # make sure the hour is changed when making the date timezone aware
     assert pst_timezone_date.hour != now.hour
+    assert pst_timezone_date.tzinfo is not None
 
 
 def test_date_make_timezone_aware_1():
@@ -315,16 +320,16 @@ def test_date_parse_1():
     assert standardized_date.month == future_date.month
     assert standardized_date.day == future_date.day
 
-    standardized_date = date_parse('Sat Oct 11 17:13:46 UTC 2003')
+    standardized_date = date_parse('Sat Oct 11 17:13:46 -1 2003')
     assert standardized_date.year == 2003
     assert standardized_date.month == 10
     assert standardized_date.day == 11
     assert standardized_date.hour == 17
     assert standardized_date.minute == 13
 
-    # test the same date as above, but without being timezone aware... make sure the hour is different (this assumes that the test is not running in UTC)
-    standardized_date = date_parse('Sat Oct 11 17:13:46 UTC 2003', convert_to_current_timezone=True)
-    assert standardized_date.hour != 17
+    # test the same date as above, but convert the time to the current timezone (which is assumed to be UTC)
+    standardized_date = date_parse('Sat Oct 11 17:13:46 -1 2003', convert_to_current_timezone=True)
+    assert standardized_date.hour == 18
 
     standardized_date = date_parse('Sat, Oct 11, 2003')
     assert standardized_date.year == 2003
@@ -366,14 +371,15 @@ def test_date_parse_1():
     assert standardized_date.month == 8
     assert standardized_date.day == 2
 
-    standardized_date = date_parse('20191006T013000Z')
-    assert standardized_date.year == 2019
-    assert standardized_date.month == 10
-    assert standardized_date.day == 6
+    standardized_date = date_parse('2018-11-08T22:52:42-05:00')
+    assert standardized_date.year == 2018
+    assert standardized_date.month == 11
+    assert standardized_date.day == 8
 
-    # this is the same date as above, but will be converted to the current timezone; this assumes that the test is being somewhere west of UTC
-    standardized_date = date_parse('20191006T003000Z', convert_to_current_timezone=True)
-    assert standardized_date.day == 5
+    # this is the same date as above, but convert the time to the current timezone (which is assumed to be UTC)
+    standardized_date = date_parse('2018-11-08T22:52:42-05:00', convert_to_current_timezone=True)
+    # the day should be the next day UTC
+    assert standardized_date.day == 9
 
     standardized_date = date_parse('2018-01-13T11:11:11Z')
     assert standardized_date.year == 2018
