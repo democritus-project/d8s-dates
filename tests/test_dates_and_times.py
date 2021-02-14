@@ -32,6 +32,7 @@ from democritus_dates import (
     time_since,
     time_until,
     date_parse_first_argument,
+    time_as_float,
 )
 
 """NOTE: WE ASSUME THAT THE SYSTEM RUNNING THE TESTS IS SET TO THE UTC TIMEZONE (BECAUSE THESE TESTS ARE RUNNING IN DOCKER (OR A CI SYSTEM))."""
@@ -493,3 +494,11 @@ def test_date_parse_first_argument_1():
 
     date = date_parse_first_argument_test_func('3 days ago')
     assert isinstance(date, datetime.datetime)
+
+
+def test_time_as_float_1():
+    assert time_as_float("12:00") == 12.0
+    assert time_as_float("12:10") == 12.166666666666666
+    assert time_as_float("12:15") == 12.25
+    assert time_as_float("12:30") == 12.5
+    assert time_as_float("12:45") == 12.75

@@ -459,3 +459,18 @@ def time_waste(n=3):
     time.sleep(n)
     message = f'I just wasted {n} seconds of your life.'
     print(message)
+
+def time_as_float(time_string: str) -> float:
+    """converts a given HH:MM time string to float"""
+    try:
+        hours, mintues = list(map(int, time_string.split(":"))) #parse given time string
+    except ValueError:
+        message = f"Invalid time string, ensure that the argument is in HH:MM format. Provided value: {time_string}"
+        raise ValueError(message)
+
+    if hours > 23 or mintues > 59:
+        message = f"Invalid time string, should be between 00:00 and 23:59. Provided value: {time_string}"
+        raise ValueError(message)
+
+    return hours + (mintues/60)
+    
