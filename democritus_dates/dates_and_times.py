@@ -459,3 +459,11 @@ def time_waste(n=3):
     time.sleep(n)
     message = f'I just wasted {n} seconds of your life.'
     print(message)
+
+
+def time_as_float(time_string: str) -> float:
+    # Convert a given time to a float, where the value after the decimal point represents the percent of the hour that has gone by.
+    hour_mins = time_string.split(':')
+    mins_float_val = int(hour_mins[1]) / 60
+    time_string = int(hour_mins[0]) + mins_float_val
+    return time_string
