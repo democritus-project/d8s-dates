@@ -1,6 +1,10 @@
+bandit
 black; python_version > '3.5'
-twine
-tox
+codecov
+flake8
+mypy
+pylint
 pytest
 pytest-cov
-codecov
+tox
+twine
