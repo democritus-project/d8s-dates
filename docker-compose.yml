@@ -1,3 +1,5 @@
+version: '3.4'
+
 services:
   # a fully loaded development environment to test new code
   dev:
@@ -8,12 +10,12 @@ services:
     volumes:
       - ./:/code
 
-  # run all the tests
+  # run tests
   test:
     <<: *dev
     command: pytest -v --cov=. --cov-report term-missing --cov-fail-under 90
 
-  # run the linters
+  # run linters
   lint:
     <<: *dev
-    entrypoint: docker/bump_version.sh
+    entrypoint: ./docker/lint.sh
