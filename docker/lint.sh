@@ -4,9 +4,9 @@ set -euxo pipefail
 
 echo "Running linters and formatters..."
 
-black democritus_dates/ tests/
-
 isort democritus_dates/ tests/
+
+black democritus_dates/ tests/
 
 pylint --fail-under 9 democritus_dates/*.py
 

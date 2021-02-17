@@ -15,7 +15,6 @@ from hypothesis.strategies import dates, datetimes, timedeltas, times
 
 from democritus_dates.dates_and_times_temp_utils import number_zero_pad, string_remove_from_end
 
-# todo: I think there is a better way to provide the data below (e.g. the list of day names and abbreviations)
 d = calendar.day_name
 day_names = [i(d.format) for i in d._days]
 
