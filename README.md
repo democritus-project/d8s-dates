@@ -12,13 +12,35 @@ Democritus functions<sup>[1]</sup> for working with and using dates and times.
 
 Coming soon...
 
+## Development
+
+If you want to contribute to this project, make sure you have [docker][docker] and [docker-compose][docker-compose] installed (if you don't see: [installing docker][docker-install]).
+
+Once you have docker installed, you should [fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) and [clone](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) the repo.
+
+Then you can both *test* and *lint* this project using the docker-compose commands below!
+
 ### Testing
 
-This project is designed to be tested using [docker][docker] and [docker-compose][docker-compose]. You can run tests using `docker-compose run test`.
+To test this project, run the following command from the root directory of the repository: `docker-compose run test`.
+
+To see what this command does, take a look at the `test` service in the `docker-compose.yml` file.
+
+### Linting
+
+To lint<sup>1</sup> this project, run the following command from the root directory of the repository: `docker-compose run lint`.
+
+To see what this command does, take a look at the `lint` service in the `docker-compose.yml` file.
 
 ## Credits
 
 This package was created with [Cookiecutter](https://github.com/audreyr/cookiecutter) and Floyd Hightower's [Python project template](https://github.com/fhightower-templates/python-project-template).
 
-[docker]: https://www.docker.com/get-started
+---
+
+1 - You can read more about what linting is and why it is helpful [here][linting-intro]
+
 [docker-compose]: https://docs.docker.com/compose/
+[docker-install]: https://docs.docker.com/get-docker/
+[docker]: https://www.docker.com/get-started
+[linting-intro]: https://dbader.org/blog/python-code-linting
