@@ -1,7 +1,9 @@
 try:
-    from importlib.metadata import version, PackageNotFoundError
+    from importlib.metadata import PackageNotFoundError, version
 except ImportError:
-    from importlib_metadata import version, PackageNotFoundError
+    from importlib_metadata import PackageNotFoundError, version
+
+from .dates_and_times import *
 
 try:
     __version__ = version('democritus_dates')
@@ -11,5 +13,3 @@ except PackageNotFoundError:
 
 __author__ = '''Floyd Hightower'''
 __email__ = 'floyd.hightower27@gmail.com'
-
-from .dates_and_times import *

@@ -1,7 +1,5 @@
 """Utility functions temporarily provided until the rest of the democritus functions get uploaded."""
 
-import functools
-
 
 def number_zero_pad(num: int, length: int) -> str:
     """."""

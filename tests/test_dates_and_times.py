@@ -2,37 +2,37 @@ import datetime
 import time
 
 from democritus_dates import (
-    date_now,
-    time_after,
-    time_before,
-    time_now,
-    date_to_epoch,
-    date_week_of_year,
-    epoch_time_standardization,
-    date_parse,
-    time_examples,
-    datetime_examples,
-    date_examples,
-    epoch_to_date,
-    time_since_slang,
-    time_until_slang,
-    date_to_iso,
-    date_make_timezone_aware,
-    date_convert_to_timezone,
-    time_in_future,
-    date_day_of_week,
     chrome_timestamp_to_epoch,
-    epoch_time_now,
-    time_is,
-    time_waste,
-    date_string_to_strftime_format,
     date_2_string,
-    time_delta_examples,
-    is_date,
-    time_since,
-    time_until,
+    date_convert_to_timezone,
+    date_day_of_week,
+    date_examples,
+    date_in_future,
+    date_make_timezone_aware,
+    date_now,
+    date_parse,
     date_parse_first_argument,
+    date_string_to_strftime_format,
+    date_to_epoch,
+    date_to_iso,
+    date_week_of_year,
+    datetime_examples,
+    epoch_time_now,
+    epoch_time_standardization,
+    epoch_to_date,
+    is_date,
+    time_after,
     time_as_float,
+    time_before,
+    time_delta_examples,
+    time_examples,
+    time_is,
+    time_now,
+    time_since,
+    time_since_slang,
+    time_until,
+    time_until_slang,
+    time_waste,
 )
 
 """NOTE: WE ASSUME THAT THE SYSTEM RUNNING THE TESTS IS SET TO THE UTC TIMEZONE (BECAUSE THESE TESTS ARE RUNNING IN DOCKER (OR A CI SYSTEM))."""
@@ -201,10 +201,10 @@ def test_date_day_of_week_1():
     assert date_day_of_week('January 11, 2010') == 'Monday'
 
 
-def test_time_in_future_1():
-    assert time_in_future('2200/01/13')
-    assert not time_in_future('2000/01/13')
-    assert not time_in_future('1990/01/13')
+def test_date_in_future_1():
+    assert date_in_future('2200/01/13')
+    assert not date_in_future('2000/01/13')
+    assert not date_in_future('1990/01/13')
 
 
 def test_date_convert_to_timezone_1():

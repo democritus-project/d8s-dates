@@ -3,13 +3,17 @@
 import calendar
 import datetime
 import functools
-import os
-import sys
-import time
 import re
+import time
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '.')))
-from dates_and_times_temp_utils import number_zero_pad, string_remove_from_end
+import dateutil.parser
+import maya
+import parsedatetime
+from democritus_hypothesis import hypothesis_get_strategy_results
+from democritus_timezones import pytz_timezone_object
+from hypothesis.strategies import dates, datetimes, timedeltas, times
+
+from democritus_dates.dates_and_times_temp_utils import number_zero_pad, string_remove_from_end
 
 # todo: I think there is a better way to provide the data below (e.g. the list of day names and abbreviations)
 d = calendar.day_name
@@ -67,7 +71,7 @@ def date_string_to_strftime_format(date_string):
 
 def date_parse(date, *, convert_to_current_timezone: bool = False):
     """Parse the given date (can parse dates in most formats) (returns a datetime object)."""
-    if isinstance(date, datetime.datetime) or isinstance(date, datetime.date) or isinstance(date, datetime.time):
+    if isinstance(date, (datetime.date, datetime.time, datetime.datetime)):
         return date
 
     # try to parse the date as an epoch datetime (I'm starting with this one because it is the most discrete form of date)
@@ -78,7 +82,7 @@ def date_parse(date, *, convert_to_current_timezone: bool = False):
         try:
             date = _dateutil_parser_parse(date)
         # if the given date could not be parsed by the dateutil module, try to parse the date using parsedatetime
-        except ValueError:
+        except ValueError as e:
             parsed_time_struct, parse_status = _parsedatetime_parse(date)
 
             # convert the parsed_time_struct to a datetime object and return it
@@ -86,7 +90,7 @@ def date_parse(date, *, convert_to_current_timezone: bool = False):
                 date = time_struct_to_datetime(parsed_time_struct)
             else:
                 message = f'Unable to convert the date "{date}" into a standard date format.'
-                raise RuntimeError(message)
+                raise RuntimeError(message) from e
 
     if convert_to_current_timezone:
         date = date_make_timezone_aware(date)
@@ -95,6 +99,11 @@ def date_parse(date, *, convert_to_current_timezone: bool = False):
 
 
 def date_now(*, convert_to_current_timezone: bool = False, utc: bool = False):
+    """Get the current date.
+
+    If convert_to_current_timezone is True, convert the date to the current timezone.
+    If utc is True, convert the date to UTC.
+    """
     now = datetime.datetime.now()
 
     if convert_to_current_timezone:
@@ -169,22 +178,15 @@ def date_year(date):
     return date.year
 
 
-# TODO: implement this (and probably similar functions for other time ranges (e.g. nHoursAgo))
-def n_days_ago():
-    raise NotImplementedError
-
-
 @date_parse_first_argument
 def date_convert_to_timezone(date, timezone_string):
     """Convert the given date to the given timezone_string (this will actually **convert** time given date; it will change the hour/day of the date to the given timezone)."""
-    from democritus_timezones import pytz_timezone_object
-
     # if the given date does not have a timezone, use the system's timezone
     if date.tzinfo is None:
         date = date_make_timezone_aware(date)
 
-    pytz_timezone_object = pytz_timezone_object(timezone_string)
-    converted_date = date.astimezone(pytz_timezone_object)
+    timezone_object = pytz_timezone_object(timezone_string)
+    converted_date = date.astimezone(timezone_object)
     return converted_date
 
 
@@ -192,10 +194,8 @@ def date_make_timezone_aware(datetime_object, timezone_string=None):
     """Make the given datetime_object timezone aware. This function does NOT convert the datetime_object; it will never change the hour/day or any value of the datetime; it will simply make the given datetime timezone aware."""
     if timezone_string:
         # make the date timezone aware using the given timezone_string
-        from democritus_timezones import pytz_timezone_object
-
-        pytz_timezone_object = pytz_timezone_object(timezone_string)
-        timezone_aware_datetime_object = pytz_timezone_object.localize(datetime_object)
+        timezone_object = pytz_timezone_object(timezone_string)
+        timezone_aware_datetime_object = timezone_object.localize(datetime_object)
     else:
         # make the date timezone aware using the timezone of the current system
         timezone_aware_datetime_object = datetime_object.astimezone()
@@ -205,10 +205,6 @@ def date_make_timezone_aware(datetime_object, timezone_string=None):
 
 def time_delta_examples(n=10, *, time_deltas_as_strings: bool = True):
     """Return n time deltas."""
-    from hypothesis.strategies import timedeltas
-
-    from democritus_hypothesis import hypothesis_get_strategy_results
-
     time_delta_objects = hypothesis_get_strategy_results(timedeltas, n=n)
     if time_deltas_as_strings:
         return [str(time_delta) for time_delta in time_delta_objects]
@@ -218,10 +214,6 @@ def time_delta_examples(n=10, *, time_deltas_as_strings: bool = True):
 
 def time_examples(n=10, *, times_as_strings: bool = True):
     """Return n times."""
-    from hypothesis.strategies import times
-
-    from democritus_hypothesis import hypothesis_get_strategy_results
-
     time_objects = hypothesis_get_strategy_results(times, n=n)
     if times_as_strings:
         return [str(time) for time in time_objects]
@@ -231,10 +223,6 @@ def time_examples(n=10, *, times_as_strings: bool = True):
 
 def date_examples(n=10, *, dates_as_strings: bool = True, date_string_format: str = None):
     """Return n dates."""
-    from hypothesis.strategies import dates
-
-    from democritus_hypothesis import hypothesis_get_strategy_results
-
     date_objects = hypothesis_get_strategy_results(dates, n=n)
     if dates_as_strings:
         if date_string_format is None:
@@ -247,10 +235,6 @@ def date_examples(n=10, *, dates_as_strings: bool = True, date_string_format: st
 
 def datetime_examples(n=10, *, datetimes_as_strings: bool = True, datetime_string_format: str = None):
     """Return n datetimes."""
-    from hypothesis.strategies import datetimes
-
-    from democritus_hypothesis import hypothesis_get_strategy_results
-
     datetime_objects = hypothesis_get_strategy_results(datetimes, n=n)
     if datetimes_as_strings:
         if datetime_string_format is None:
@@ -268,8 +252,6 @@ def time_struct_to_datetime(struct_time_object):
 
 def _parsedatetime_parse(date_string):
     """Parse the given date_string using the parsedatetime module."""
-    import parsedatetime
-
     # for more details on how the .parse function available from the parsedatetime module works, see https://github.com/bear/parsedatetime/blob/830775dc5e36395622b41f12317f5e10c303d3a2/parsedatetime/__init__.py#L1779
     cal = parsedatetime.Calendar()
     parsed_date = cal.parse(date_string)
@@ -278,16 +260,12 @@ def _parsedatetime_parse(date_string):
 
 def _dateutil_parser_parse(date_string):
     """Parse the given date_string using the dateutil.parser module."""
-    import dateutil.parser
-
     parsed_date = dateutil.parser.parse(date_string)
     return parsed_date
 
 
 def _maya_time_parse(date_object, *, convert_to_utc: bool = True):
     """Parse the given date_object using maya (see https://github.com/timofurrer/maya). By default, the given date_object is converted to UTC because maya will assume that any given date is in UTC."""
-    import maya
-
     if convert_to_utc:
         # convert the given date to UTC (this is necessary b/c maya will assume that the given date is in UTC)
         date = date_to_utc(date_object)
@@ -303,8 +281,6 @@ def date_read(date_string, *, convert_to_current_timezone: bool = False):
 
 def epoch_time_now():
     """Get the current epoch time."""
-    import time
-
     return int(time.time())
 
 
@@ -382,9 +358,9 @@ def time_before(time_a, time_b=None) -> bool:
 
 
 @date_parse_first_argument
-def time_in_future(time) -> bool:
-    """Return whether or not the given time is in the future."""
-    is_in_the_future = time_after(time)
+def date_in_future(date) -> bool:
+    """Return whether or not the given date is in the future."""
+    is_in_the_future = time_after(date)
     return is_in_the_future
 
 
@@ -395,8 +371,6 @@ def time_is():
 @date_parse_first_argument
 def date_to_iso(date, *, timezone_is_utc: bool = False, use_trailing_z: bool = False):
     """Return the ISO 8601 version of the given date as a string (see https://en.wikipedia.org/wiki/ISO_8601)."""
-    import datetime
-
     if timezone_is_utc:
         # replace any timezones on the date with UTC - this is not a conversion - it is a hard-replace; if there is a timezone on the given date, it will NOT be *converted* to UTC... the time will remain the same, but the timezone will change to UTC
         date = date.replace(tzinfo=datetime.timezone.utc)
@@ -464,7 +438,7 @@ def time_waste(n=3):
 def time_as_float(time_string: str) -> float:
     """converts a given HH:MM time string to float"""
     try:
-        hours, minutes = list(map(int, time_string.split(":"))) #parse given time string
+        hours, minutes = list(map(int, time_string.split(":")))  # parse given time string
     except ValueError as e:
         message = f"Invalid time string, ensure that the argument is in HH:MM format. Provided value: {time_string}"
         raise ValueError(message) from e
@@ -473,4 +447,4 @@ def time_as_float(time_string: str) -> float:
         message = f"Invalid time string, should be between 00:00 and 23:59. Provided value: {time_string}"
         raise ValueError(message)
 
-    return hours + (minutes/60)
+    return hours + (minutes / 60)
