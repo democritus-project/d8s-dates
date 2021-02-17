@@ -1,6 +1,6 @@
 # Democritus Dates
 
-[![PyPI](https://img.shields.io/pypi/v/dem_dates.svg)](https://pypi.python.org/pypi/dem_dates)
+[![PyPI](https://img.shields.io/pypi/v/democritus-dates.svg)](https://pypi.python.org/pypi/democritus-dates)
 [![Build Status](https://travis-ci.com/democritus-project/democritus-dates.svg?branch=main)](https://travis-ci.com/democritus-project/democritus-dates)
 [![codecov](https://codecov.io/gh/democritus-project/democritus-dates/branch/main/graph/badge.svg?token=V0WOIXRGMM)](https://codecov.io/gh/democritus-project/democritus-dates)
 
@@ -22,13 +22,21 @@ Then you can both *test* and *lint* this project using the docker-compose comman
 
 ### Testing
 
-To test this project, run the following command from the root directory of the repository: `docker-compose run test`.
+To test this project, run the following command from the root directory of the repository:
+
+```shell
+docker-compose run test
+```
 
 To see what this command does, take a look at the `test` service in the `docker-compose.yml` file.
 
 ### Linting
 
-To lint<sup>1</sup> this project, run the following command from the root directory of the repository: `docker-compose run lint`.
+To lint<sup>1</sup> this project, run the following command from the root directory of the repository:
+
+```shell
+docker-compose run lint
+```
 
 To see what this command does, take a look at the `lint` service in the `docker-compose.yml` file.
 
