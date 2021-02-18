@@ -40,6 +40,16 @@ docker-compose run lint
 
 To see what this command does, take a look at the `lint` service in the `docker-compose.yml` file.
 
+### Dev
+
+To drop into a "dev" environment which is a python shell with all of the requirements and this project loaded, run the following command from the root directory of the repository:
+
+```shell
+docker-compose run dev
+```
+
+To see what this command does, take a look at the `dev` service in the `docker-compose.yml` file.
+
 ## Credits
 
 This package was created with [Cookiecutter](https://github.com/audreyr/cookiecutter) and Floyd Hightower's [Python project template](https://github.com/fhightower-templates/python-project-template).
