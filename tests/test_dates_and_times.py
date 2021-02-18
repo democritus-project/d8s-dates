@@ -153,7 +153,7 @@ def test_date_string_to_strftime_format_1():
         try:
             result = date_string_to_strftime_format(k)
             assert result == v
-        except AssertionError as e:
+        except AssertionError:
             print(f'input:\t\t{k}\nexpected:\t{v}\nactual:\t\t{result}\n\n')
             failure_count += 1
 

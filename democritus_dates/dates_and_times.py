@@ -53,6 +53,7 @@ STRF_DATA = (
 
 
 def date_string_to_strftime_format(date_string):
+    """Predict the strftime format from the given date_string."""
     for data in STRF_DATA:
         for pattern in data.get('patterns', []):
             if pattern in date_string:
@@ -73,7 +74,8 @@ def date_parse(date, *, convert_to_current_timezone: bool = False):
     if isinstance(date, (datetime.date, datetime.time, datetime.datetime)):
         return date
 
-    # try to parse the date as an epoch datetime (I'm starting with this one because it is the most discrete form of date)
+    # try to parse the date as an epoch datetime...
+    # we start with epoch datetime as it is the most discrete form of a date
     try:
         date = epoch_to_date(date)
     except ValueError:
@@ -179,7 +181,10 @@ def date_year(date):
 
 @date_parse_first_argument
 def date_convert_to_timezone(date, timezone_string):
-    """Convert the given date to the given timezone_string (this will actually **convert** time given date; it will change the hour/day of the date to the given timezone)."""
+    """Convert the given date to the given timezone_string.
+
+    This will actually **convert** time given date; it will change the hour/day of the date to the given timezone).
+    """
     # if the given date does not have a timezone, use the system's timezone
     if date.tzinfo is None:
         date = date_make_timezone_aware(date)
@@ -190,7 +195,12 @@ def date_convert_to_timezone(date, timezone_string):
 
 
 def date_make_timezone_aware(datetime_object, timezone_string=None):
-    """Make the given datetime_object timezone aware. This function does NOT convert the datetime_object; it will never change the hour/day or any value of the datetime; it will simply make the given datetime timezone aware."""
+    """Make the given datetime_object timezone aware.
+
+    This function does NOT convert the datetime_object.
+    It will never change the hour/day or any value of the datetime...
+      it will simply make the given datetime timezone aware.
+    """
     if timezone_string:
         # make the date timezone aware using the given timezone_string
         timezone_object = pytz_timezone_object(timezone_string)
@@ -251,7 +261,8 @@ def time_struct_to_datetime(struct_time_object):
 
 def _parsedatetime_parse(date_string):
     """Parse the given date_string using the parsedatetime module."""
-    # for more details on how the .parse function available from the parsedatetime module works, see https://github.com/bear/parsedatetime/blob/830775dc5e36395622b41f12317f5e10c303d3a2/parsedatetime/__init__.py#L1779
+    # for more details on how the parsedatetime.Calendar.parse function works, see:
+    # https://github.com/bear/parsedatetime/blob/830775dc5e36395622b41f12317f5e10c303d3a2/parsedatetime/__init__.py#L1779
     cal = parsedatetime.Calendar()
     parsed_date = cal.parse(date_string)
     return parsed_date
@@ -294,6 +305,7 @@ def is_date(possible_date_string):
 
 
 def time_now():
+    """Return the current, epoch time."""
     return time.time()
 
 
@@ -363,7 +375,8 @@ def date_in_future(date) -> bool:
     return is_in_the_future
 
 
-def time_is():
+def time_is() -> str:
+    """Time and money spent in helping men to do more for themselves is far better than mere giving. -Henry Ford"""
     return '$'
 
 
@@ -429,6 +442,7 @@ def chrome_timestamp_to_epoch(chrome_timestamp):
 
 
 def time_waste(n=3):
+    """If time be of all things the most precious, wasting time must be the greatest prodigality. -Benjamin Franklin"""
     time.sleep(n)
     message = f'I just wasted {n} seconds of your life.'
     print(message)
