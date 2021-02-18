@@ -14,7 +14,7 @@ mypy democritus_dates/ tests/
 
 flake8 democritus_dates/ tests/
 
-bandit democritus_dates/
+bandit -r democritus_dates/
 
-# we run black again at the end to undo any odd changes made by any of the linters above (e.g. isort)
+# we run black again at the end to undo any odd changes made by any of the linters above
 black democritus_dates/ tests/
