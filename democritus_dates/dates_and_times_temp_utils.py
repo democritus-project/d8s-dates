@@ -4,7 +4,10 @@
 def number_zero_pad(num: int, length: int) -> str:
     """."""
     if length < len(str(num)):
-        message = 'The length you provided is shorter than the number. Please provide a length that is at least as long as the given number.'
+        message = (
+            'The length you provided is shorter than the number. '
+            + 'Please provide a length that is at least as long as the given number.'
+        )
         raise ValueError(message)
 
     zero_padded_number = f'{num}'

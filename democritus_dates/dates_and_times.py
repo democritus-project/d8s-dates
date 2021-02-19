@@ -1,6 +1,5 @@
 """Democritus functions for working with dates and times in Python."""
 
-import calendar
 import datetime
 import functools
 import re
@@ -15,23 +14,29 @@ from hypothesis.strategies import dates, datetimes, timedeltas, times
 
 from democritus_dates.dates_and_times_temp_utils import number_zero_pad, string_remove_from_end
 
-d = calendar.day_name
-day_names = [i(d.format) for i in d._days]
-
-d = calendar.day_abbr
-day_abbreviations = [i(d.format) for i in d._days]
-
-m = calendar.month_name
-month_names = [i(m.format) for i in m._months][1:]
-
-m = calendar.month_abbr
-month_abbreviations = [i(m.format) for i in m._months][1:]
+DAY_NAMES = ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')
+DAY_ABBREVIATIONS = ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun')
+MONTH_NAMES = (
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+)
+MONTH_ABBREVIATIONS = ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
 
 STRF_DATA = (
-    {'patterns': day_abbreviations, 'replacement': '%a'},
-    {'patterns': day_names, 'replacement': '%A'},
-    {'patterns': month_abbreviations, 'replacement': '%b'},
-    {'patterns': month_names, 'replacement': '%B'},
+    {'patterns': DAY_ABBREVIATIONS, 'replacement': '%a'},
+    {'patterns': DAY_NAMES, 'replacement': '%A'},
+    {'patterns': MONTH_ABBREVIATIONS, 'replacement': '%b'},
+    {'patterns': MONTH_NAMES, 'replacement': '%B'},
     {'regex': r'[0123]?[0-9]/%b/[0-9]{4}', 'replacement': '%d/%b/%Y'},
     {'regex': r'[0-9]?[0-9]:[0-9]{2}:[0-9]{2}', 'replacement': '%X'},
     {'regex': r'[01]?[0-9]/[0123]?[0-9]/[0-9]{3,4}', 'replacement': '%-m/%-d/%Y'},
@@ -275,7 +280,10 @@ def _dateutil_parser_parse(date_string):
 
 
 def _maya_time_parse(date_object, *, convert_to_utc: bool = True):
-    """Parse the given date_object using maya (see https://github.com/timofurrer/maya). By default, the given date_object is converted to UTC because maya will assume that any given date is in UTC."""
+    """Parse the given date_object using maya (see https://github.com/timofurrer/maya).
+
+    By default, the given date_object is converted to UTC because maya will assume that any given date is in UTC.
+    """
     if convert_to_utc:
         # convert the given date to UTC (this is necessary b/c maya will assume that the given date is in UTC)
         date = date_to_utc(date_object)
@@ -298,7 +306,7 @@ def is_date(possible_date_string):
     """Determine if the given possible_date_string can be processed as a date."""
     try:
         date_parse(possible_date_string)
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         return False
     else:
         return True
@@ -384,7 +392,9 @@ def time_is() -> str:
 def date_to_iso(date, *, timezone_is_utc: bool = False, use_trailing_z: bool = False):
     """Return the ISO 8601 version of the given date as a string (see https://en.wikipedia.org/wiki/ISO_8601)."""
     if timezone_is_utc:
-        # replace any timezones on the date with UTC - this is not a conversion - it is a hard-replace; if there is a timezone on the given date, it will NOT be *converted* to UTC... the time will remain the same, but the timezone will change to UTC
+        # replace any timezones on the date with UTC - this is not a conversion - it is a hard-replace...
+        # if there is a timezone on the given date, it will NOT be *converted* to UTC...
+        # the time will remain the same, but the timezone will change to UTC
         date = date.replace(tzinfo=datetime.timezone.utc)
 
     iso_format_date = date.isoformat()
@@ -401,7 +411,8 @@ def date_to_iso(date, *, timezone_is_utc: bool = False, use_trailing_z: bool = F
 def epoch_time_standardization(epoch_time):
     """Convert the given epoch time to an epoch time in seconds."""
     epoch_time_string = str(epoch_time)
-    # if the given epoch time appears to include milliseconds (or some other level of precision) and does not have a decimal in it, add a decimal point
+    # if the given epoch time appears to include milliseconds (or some other level of precision)...
+    # and does not have a decimal in it, add a decimal point
     if len(epoch_time_string) > 10 and '.' not in epoch_time_string:
         epoch_time = f'{epoch_time_string[:10]}.{epoch_time_string[10:]}'
     return epoch_time
@@ -437,7 +448,10 @@ def date_to_epoch(date):
 
 
 def chrome_timestamp_to_epoch(chrome_timestamp):
-    """Convert the given Chrome timestamp to epoch time. For more information, see: https://stackoverflow.com/questions/20458406/what-is-the-format-of-chromes-timestamps."""
+    """Convert the given Chrome timestamp to epoch time.
+
+    For more information, see: https://stackoverflow.com/questions/20458406/what-is-the-format-of-chromes-timestamps.
+    """
     return (chrome_timestamp / 1000000) - 11644473600
 
 
