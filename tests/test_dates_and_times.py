@@ -1,21 +1,30 @@
 import datetime
 import time
 
+import pytest
+
 from democritus_dates import (
     chrome_timestamp_to_epoch,
     date_2_string,
     date_convert_to_timezone,
+    date_day,
+    date_day_of_month,
     date_day_of_week,
     date_examples,
+    date_hour,
     date_in_future,
     date_make_timezone_aware,
+    date_minute,
+    date_month,
     date_now,
     date_parse,
     date_parse_first_argument,
+    date_second,
     date_string_to_strftime_format,
     date_to_epoch,
     date_to_iso,
     date_week_of_year,
+    date_year,
     datetime_examples,
     epoch_time_now,
     epoch_time_standardization,
@@ -36,6 +45,76 @@ from democritus_dates import (
 )
 
 """NOTE: WE ASSUME THAT THE SYSTEM RUNNING THE TESTS IS SET TO THE UTC TIMEZONE (BECAUSE THESE TESTS ARE RUNNING IN DOCKER (OR A CI SYSTEM))."""
+
+
+@pytest.mark.parametrize(
+    "date,expected_output",
+    [
+        ('2022-01-13 12:30:22', 12),
+    ],
+)
+def test_date_hour_1(date, expected_output):
+    assert date_hour(date) == expected_output
+
+
+@pytest.mark.parametrize(
+    "date,expected_output",
+    [
+        ('2022-01-13 12:30:22', 30),
+    ],
+)
+def test_date_minute_1(date, expected_output):
+    assert date_minute(date) == expected_output
+
+
+@pytest.mark.parametrize(
+    "date,expected_output",
+    [
+        ('2022-01-13 12:30:22', 22),
+    ],
+)
+def test_date_second_1(date, expected_output):
+    assert date_second(date) == expected_output
+
+
+@pytest.mark.parametrize(
+    "date,expected_output",
+    [
+        ('2022-01-13 12:30:22', 13),
+    ],
+)
+def test_date_day_1(date, expected_output):
+    assert date_day(date) == expected_output
+
+
+@pytest.mark.parametrize(
+    "date,expected_output",
+    [
+        ('2022-01-13 12:30:22', 13),
+    ],
+)
+def test_date_day_of_month_1(date, expected_output):
+    assert date_day_of_month(date) == expected_output
+
+
+@pytest.mark.parametrize(
+    "date,expected_output",
+    [
+        ('2022-01-13 12:30:22', 1),
+    ],
+)
+def test_date_month_1(date, expected_output):
+    assert date_month(date) == expected_output
+
+
+@pytest.mark.parametrize(
+    "date,expected_output",
+    [
+        ('2022-01-13 12:30:22', 2022),
+    ],
+)
+def test_date_year_1(date, expected_output):
+    assert date_year(date) == expected_output
 
 
 def test_time_until_1():
@@ -169,7 +248,7 @@ def test_time_waste_1():
     a = time_now()
     time_waste()
     b = time_now()
-    assert 3 < b - a < 4
+    assert 3 < b - a < 4.5
 
     n = 1
     a = time_now()
@@ -395,6 +474,12 @@ def test_date_parse_1():
     assert str(standardized_date) == '2018-01-13 11:11:11+00:00'
 
 
+def test_time_examples_1():
+    result = time_examples(n=1, times_as_strings=False)
+    assert len(result) == 1
+    assert isinstance(result[0], datetime.time)
+
+
 def test_date_parse_2_fuzzing():
     """Create a number of test dates/datetimes and run them through the standardization function to make sure it doesn't crash when given odd values."""
     # test a number of times
@@ -449,6 +534,14 @@ def test_date_now_1():
     a = date_now()
     b = date_now()
     assert a < b
+
+
+def test_date_now_convert_timezone():
+    a = date_now()
+    assert '+00:00' not in str(a)
+
+    a = date_now(convert_to_current_timezone=True)
+    assert '+00:00' in str(a)
 
 
 def test_time_after_1():

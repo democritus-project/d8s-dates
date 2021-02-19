@@ -8,7 +8,7 @@ isort democritus_dates/ tests/
 
 black democritus_dates/ tests/
 
-pylint --fail-under 9 democritus_dates/*.py
+pylint democritus_dates/*.py
 
 mypy democritus_dates/ tests/
 
