@@ -34,7 +34,7 @@ STRF_DATA = (
     {'patterns': month_names, 'replacement': '%B'},
     {'regex': r'[0123]?[0-9]/%b/[0-9]{4}', 'replacement': '%d/%b/%Y'},
     {'regex': r'[0-9]?[0-9]:[0-9]{2}:[0-9]{2}', 'replacement': '%X'},
-    {'regex': r'[01]?[0-9]/[0123]?[0-9]/[0-9]{4}', 'replacement': '%-m/%-d/%Y'},
+    {'regex': r'[01]?[0-9]/[0123]?[0-9]/[0-9]{3,4}', 'replacement': '%-m/%-d/%Y'},
     {'regex': r'[01]?[0-9]/[0123]?[0-9]/[0-9]{2}', 'replacement': '%x'},
     {'regex': r'[0-9]{4}-[01]?[0-9]-[0123]?[0-9]', 'replacement': '%Y-%-m-%-d'},
     {'regex': r'\*[0-9]{3,6}', 'replacement': '*%f'},
