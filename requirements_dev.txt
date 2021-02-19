@@ -1,6 +1,8 @@
 bandit
 black; python_version > '3.5'
 codecov
+democritus_file_system
+democritus_strings
 flake8
 mypy
 pylint
