@@ -7,3 +7,5 @@ COPY ./requirements*.txt /code/
 WORKDIR /code
 
 RUN pip install -r requirements.txt -r requirements_dev.txt
+
+CMD bash

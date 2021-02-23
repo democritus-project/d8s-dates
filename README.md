@@ -42,7 +42,7 @@ To see what this command does, take a look at the `lint` service in the `docker-
 
 ### Dev
 
-To drop into a "dev" environment which is a python shell with all of the requirements and this project loaded, run the following command from the root directory of the repository:
+To drop into a "dev" environment which is an [IPython][ipython] shell with all of the requirements and this project loaded, run the following command from the root directory of the repository:
 
 ```shell
 docker-compose run dev
@@ -62,3 +62,4 @@ This package was created with [Cookiecutter](https://github.com/audreyr/cookiecu
 [docker-install]: https://docs.docker.com/get-docker/
 [docker]: https://www.docker.com/get-started
 [linting-intro]: https://dbader.org/blog/python-code-linting
+[ipython]: https://ipython.org/

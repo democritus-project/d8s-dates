@@ -1,21 +1,25 @@
 version: '3.4'
 
 services:
-  # a fully loaded development environment to test new code
-  dev:
-    &dev
+  _base:
+    &base
     build:
       dockerfile: Dockerfile
       context: .
     volumes:
       - ./:/code
 
+  # a fully loaded development environment to test new code
+  dev:
+    <<: *base
+    command: ipython
+
   # run tests
   test:
-    <<: *dev
+    <<: *base
     command: pytest
 
   # run linters
   lint:
-    <<: *dev
+    <<: *base
     entrypoint: ./docker/lint.sh
