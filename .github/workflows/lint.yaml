@@ -23,4 +23,6 @@ jobs:
         python -m pip install -r requirements.txt
         python -m pip install -r requirements_dev.txt
     - name: Lint
-      run: ./../../docker/lint.sh
+      run: |
+        ls -la
+        pwd
