@@ -8,9 +8,9 @@ isort democritus_dates/ tests/
 
 black democritus_dates/ tests/
 
-pylint democritus_dates/*.py
-
 mypy democritus_dates/ tests/
+
+pylint democritus_dates/*.py
 
 flake8 democritus_dates/ tests/
 
