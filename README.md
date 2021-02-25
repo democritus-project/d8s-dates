@@ -1,8 +1,9 @@
 # Democritus Dates
 
 [![PyPI](https://img.shields.io/pypi/v/democritus-dates.svg)](https://pypi.python.org/pypi/democritus-dates)
-[![Actions Status](https://github.com/democritus-project/democritus-dates/workflows/CI/badge.svg)](https://github.com/democritus-project/democritus-dates/actions)
+[![CI](https://github.com/democritus-project/democritus-dates/workflows/CI/badge.svg)](https://github.com/democritus-project/democritus-dates/actions)
 [![codecov](https://codecov.io/gh/democritus-project/democritus-dates/branch/main/graph/badge.svg?token=V0WOIXRGMM)](https://codecov.io/gh/democritus-project/democritus-dates)
+[![The Democritus Project uses a form of calendar versioning in the form: `MAJOR.YYYY.0M.0D`](https://img.shields.io/badge/calver-MAJOR.YYYY.0M.0D-22bfda)](https://calver.org/)
 
 Democritus functions<sup>[1]</sup> for working with and using dates and times.
 
