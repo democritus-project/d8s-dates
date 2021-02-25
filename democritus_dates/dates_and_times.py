@@ -112,7 +112,7 @@ def date_now(*, convert_to_current_timezone: bool = False, utc: bool = False):
     """
     now = datetime.datetime.now()
 
-    if convert_to_current_timezone and utc :
+    if convert_to_current_timezone and utc:
         raise ValueError("Only one input parameter from utc and convert_to_current_timezone can be true.")
 
     if convert_to_current_timezone:
