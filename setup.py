@@ -12,13 +12,13 @@ with open('requirements_dev.txt') as requirements_dev_file:
     test_requirements = requirements_dev_file.read().splitlines()
 
 setup(
-    name='democritus_dates',
+    name='d8s_dates',
     description="Democritus functions for working with dates and times in Python.",
     long_description=readme,
     long_description_content_type="text/markdown",
     author="Floyd Hightower",
     author_email='floyd.hightower27@gmail.com',
-    url='https://github.com/democritus-project/democritus-dates',
+    url='https://github.com/democritus-project/d8s-dates',
     use_scm_version=True,
     setup_requires=['setuptools_scm'],
     packages=find_packages(exclude=('tests')),

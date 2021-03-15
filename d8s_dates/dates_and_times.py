@@ -12,7 +12,7 @@ from democritus_hypothesis import hypothesis_get_strategy_results
 from democritus_timezones import pytz_timezone_object
 from hypothesis.strategies import dates, datetimes, timedeltas, times
 
-from democritus_dates.dates_and_times_temp_utils import number_zero_pad, string_remove_from_end
+from d8s_dates.dates_and_times_temp_utils import number_zero_pad, string_remove_from_end
 
 DAY_NAMES = ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')
 DAY_ABBREVIATIONS = ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun')

@@ -3,7 +3,7 @@ import time
 
 import pytest
 
-from democritus_dates import (
+from d8s_dates import (
     chrome_timestamp_to_epoch,
     date_2_string,
     date_convert_to_timezone,

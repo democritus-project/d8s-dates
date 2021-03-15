@@ -1,8 +1,8 @@
 # Democritus Dates
 
-[![PyPI](https://img.shields.io/pypi/v/democritus-dates.svg)](https://pypi.python.org/pypi/democritus-dates)
-[![CI](https://github.com/democritus-project/democritus-dates/workflows/CI/badge.svg)](https://github.com/democritus-project/democritus-dates/actions)
-[![codecov](https://codecov.io/gh/democritus-project/democritus-dates/branch/main/graph/badge.svg?token=V0WOIXRGMM)](https://codecov.io/gh/democritus-project/democritus-dates)
+[![PyPI](https://img.shields.io/pypi/v/d8s-dates.svg)](https://pypi.python.org/pypi/d8s-dates)
+[![CI](https://github.com/democritus-project/d8s-dates/workflows/CI/badge.svg)](https://github.com/democritus-project/d8s-dates/actions)
+[![codecov](https://codecov.io/gh/democritus-project/d8s-dates/branch/main/graph/badge.svg?token=V0WOIXRGMM)](https://codecov.io/gh/democritus-project/d8s-dates)
 [![The Democritus Project uses a form of calendar versioning in the form: `MAJOR.YYYY.0M.0D`](https://img.shields.io/badge/calver-MAJOR.YYYY.0M.0D-22bfda)](https://calver.org/)
 [![The Democritus Project uses black to format code](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
