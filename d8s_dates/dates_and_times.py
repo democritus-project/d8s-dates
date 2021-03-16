@@ -8,8 +8,8 @@ import time
 import dateutil.parser
 import maya
 import parsedatetime
-from democritus_hypothesis import hypothesis_get_strategy_results
-from democritus_timezones import pytz_timezone_object
+from d8s_hypothesis import hypothesis_get_strategy_results
+from d8s_timezones import pytz_timezone_object
 from hypothesis.strategies import dates, datetimes, timedeltas, times
 
 from d8s_dates.dates_and_times_temp_utils import number_zero_pad, string_remove_from_end
