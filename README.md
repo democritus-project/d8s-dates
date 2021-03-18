@@ -16,10 +16,10 @@ Coming soon...
 
 ## Development
 
-👋  If you want to get involved in this project, we have some short, helpful guides below:
+👋 &nbsp;If you want to get involved in this project, we have some short, helpful guides below:
 
 - [contribute to this project 🥇][contributing]
-- [test this project 🧪][local-dev]
+- [test it 🧪][local-dev]
 - [lint it 🧹][local-dev]
 - [explore it 🔭][local-dev]
 
