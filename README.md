@@ -29,6 +29,5 @@ If you have any questions or there is anything we did not cover, please raise an
 
 This package was created with [Cookiecutter](https://github.com/audreyr/cookiecutter) and Floyd Hightower's [Python project template](https://github.com/fhightower-templates/python-project-template).
 
-[docker]: https://www.docker.com/get-started
 [contributing]: https://github.com/democritus-project/.github/blob/main/CONTRIBUTING.md#contributing-a-pr-
 [local-dev]: https://github.com/democritus-project/.github/blob/main/CONTRIBUTING.md#local-development-
