@@ -18,7 +18,7 @@ Coming soon...
 
 If you want to contribute to this project, make sure you have [docker][docker] and [docker-compose][docker-compose] installed (if you don't see: [installing docker][docker-install]).
 
-Once you have docker installed, you should [fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) and [clone](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) the repo.
+Once you do this, you should follow the Democritus Project's [contribution guide][contribution-guide].
 
 Then you can both *test* and *lint* this project using the docker-compose commands below!
 
@@ -30,38 +30,36 @@ To test this project, run the following command from the root directory of the r
 docker-compose run --rm test
 ```
 
-To see what this command does, take a look at the `test` service in the `docker-compose.yml` file.
+To see what this command does, take a look at the `test` service in [`docker-compose.yml`][docker-compose-file].
 
 ### Linting
 
-To lint<sup>2</sup> this project, run the following command from the root directory of the repository:
+To lint this project, run the following command from the root directory of the repository:
 
 ```shell
 docker-compose run --rm lint
 ```
 
-To see what this command does, take a look at the `lint` service in the `docker-compose.yml` file.
+To see what this command does, take a look at the `lint` service in [`docker-compose.yml`][docker-compose-file].
 
 ### Dev
 
-To drop into a "dev" environment which is an [IPython][ipython] shell with all of the requirements and this project loaded, run the following command from the root directory of the repository:
+To drop into a "dev" environment which is an [IPython][ipython] shell with the project and all its requirements loaded, run the following command from the root directory of the repository:
 
 ```shell
 docker-compose run --rm dev
 ```
 
-To see what this command does, take a look at the `dev` service in the `docker-compose.yml` file.
+To see what this command does, take a look at the `dev` service in [`docker-compose.yml`][docker-compose-file].
 
 ## Credits
 
 This package was created with [Cookiecutter](https://github.com/audreyr/cookiecutter) and Floyd Hightower's [Python project template](https://github.com/fhightower-templates/python-project-template).
-
----
-
-2 - You can read more about what linting is and why it is helpful [here][linting-intro]
 
 [docker-compose]: https://docs.docker.com/compose/
 [docker-install]: https://docs.docker.com/get-docker/
 [docker]: https://www.docker.com/get-started
 [linting-intro]: https://dbader.org/blog/python-code-linting
 [ipython]: https://ipython.org/
+[contribution-guide]: https://github.com/democritus-project/.github/blob/main/CONTRIBUTING.md
+[docker-compose-file]: ./docker-compose.yml
