@@ -3,7 +3,7 @@
 [![PyPI](https://img.shields.io/pypi/v/d8s-dates.svg)](https://pypi.python.org/pypi/d8s-dates)
 [![CI](https://github.com/democritus-project/d8s-dates/workflows/CI/badge.svg)](https://github.com/democritus-project/d8s-dates/actions)
 [![codecov](https://codecov.io/gh/democritus-project/d8s-dates/branch/main/graph/badge.svg?token=V0WOIXRGMM)](https://codecov.io/gh/democritus-project/d8s-dates)
-[![The Democritus Project uses a form of calendar versioning in the form: `MAJOR.YYYY.0M.0D`](https://img.shields.io/badge/calver-MAJOR.YYYY.0M.0D-22bfda)](https://calver.org/)
+[![The Democritus Project uses semver version 2.0.0](https://img.shields.io/badge/-semver%20v2.0.0-22bfda)](https://semver.org/spec/v2.0.0.html)
 [![The Democritus Project uses black to format code](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 Democritus functions<sup>[1]</sup> for working with and using dates and times.
