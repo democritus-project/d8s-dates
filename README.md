@@ -16,50 +16,19 @@ Coming soon...
 
 ## Development
 
-If you want to contribute to this project, make sure you have [docker][docker] and [docker-compose][docker-compose] installed (if you don't see: [installing docker][docker-install]).
+👋  If you want to get involved in this project, we have some short, helpful guides below:
 
-Once you do this, you should follow the Democritus Project's [contribution guide][contribution-guide].
+- [contribute to this project 🥇][contributing]
+- [test this project 🧪][local-dev]
+- [lint it 🧹][local-dev]
+- [explore it 🔭][local-dev]
 
-Then you can both *test* and *lint* this project using the docker-compose commands below!
-
-### Testing
-
-To test this project, run the following command from the root directory of the repository:
-
-```shell
-docker-compose run --rm test
-```
-
-To see what this command does, take a look at the `test` service in [`docker-compose.yml`][docker-compose-file].
-
-### Linting
-
-To lint this project, run the following command from the root directory of the repository:
-
-```shell
-docker-compose run --rm lint
-```
-
-To see what this command does, take a look at the `lint` service in [`docker-compose.yml`][docker-compose-file].
-
-### Dev
-
-To drop into a "dev" environment which is an [IPython][ipython] shell with the project and all its requirements loaded, run the following command from the root directory of the repository:
-
-```shell
-docker-compose run --rm dev
-```
-
-To see what this command does, take a look at the `dev` service in [`docker-compose.yml`][docker-compose-file].
+If you have any questions or there is anything we did not cover, please raise an issue and we'll be happy to help.
 
 ## Credits
 
 This package was created with [Cookiecutter](https://github.com/audreyr/cookiecutter) and Floyd Hightower's [Python project template](https://github.com/fhightower-templates/python-project-template).
 
-[docker-compose]: https://docs.docker.com/compose/
-[docker-install]: https://docs.docker.com/get-docker/
 [docker]: https://www.docker.com/get-started
-[linting-intro]: https://dbader.org/blog/python-code-linting
-[ipython]: https://ipython.org/
-[contribution-guide]: https://github.com/democritus-project/.github/blob/main/CONTRIBUTING.md
-[docker-compose-file]: ./docker-compose.yml
+[contributing]: https://github.com/democritus-project/.github/blob/main/CONTRIBUTING.md#contributing-a-pr-
+[local-dev]: https://github.com/democritus-project/.github/blob/main/CONTRIBUTING.md#local-development-
