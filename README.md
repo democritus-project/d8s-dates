@@ -27,17 +27,17 @@ Then you can both *test* and *lint* this project using the docker-compose comman
 To test this project, run the following command from the root directory of the repository:
 
 ```shell
-docker-compose run test
+docker-compose run --rm test
 ```
 
 To see what this command does, take a look at the `test` service in the `docker-compose.yml` file.
 
 ### Linting
 
-To lint<sup>1</sup> this project, run the following command from the root directory of the repository:
+To lint<sup>2</sup> this project, run the following command from the root directory of the repository:
 
 ```shell
-docker-compose run lint
+docker-compose run --rm lint
 ```
 
 To see what this command does, take a look at the `lint` service in the `docker-compose.yml` file.
@@ -47,7 +47,7 @@ To see what this command does, take a look at the `lint` service in the `docker-
 To drop into a "dev" environment which is an [IPython][ipython] shell with all of the requirements and this project loaded, run the following command from the root directory of the repository:
 
 ```shell
-docker-compose run dev
+docker-compose run --rm dev
 ```
 
 To see what this command does, take a look at the `dev` service in the `docker-compose.yml` file.
@@ -58,7 +58,7 @@ This package was created with [Cookiecutter](https://github.com/audreyr/cookiecu
 
 ---
 
-1 - You can read more about what linting is and why it is helpful [here][linting-intro]
+2 - You can read more about what linting is and why it is helpful [here][linting-intro]
 
 [docker-compose]: https://docs.docker.com/compose/
 [docker-install]: https://docs.docker.com/get-docker/
