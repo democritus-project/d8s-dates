@@ -11,6 +11,5 @@ mypy
 pylint
 pytest
 pytest-cov
-tox
 twine
 d8s-python==0.*
