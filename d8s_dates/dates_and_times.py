@@ -4,6 +4,7 @@ import datetime
 import functools
 import re
 import time
+from typing import List
 
 import dateutil.parser
 import maya
@@ -57,19 +58,21 @@ STRF_DATA = (
 )
 
 
+def _handle_patterns(patterns: List[str], replacement: str, date_string: str) -> str:
+    for pattern in patterns:
+        if pattern in date_string:
+            date_string = date_string.replace(pattern, replacement)
+            break
+    return date_string
+
+
 def date_string_to_strftime_format(date_string):
     """Predict the strftime format from the given date_string."""
     for data in STRF_DATA:
-        for pattern in data.get('patterns', []):
-            if pattern in date_string:
-                date_string = date_string.replace(pattern, data['replacement'])
-                break
-        else:
-            if data.get('regex'):
-                date_string = re.sub(data['regex'], data['replacement'], date_string)
-                # matches = find()
-                # if any(matches):
-                #     date_string = date_string.replace(matches[0], data['replacement'])
+        if data.get('patterns'):
+            date_string = _handle_patterns(data['patterns'], data['replacement'], date_string)
+        elif data.get('regex'):
+            date_string = re.sub(data['regex'], data['replacement'], date_string)
 
     return date_string
 
@@ -96,7 +99,7 @@ def date_parse(date, *, convert_to_current_timezone: bool = False):
                 date = time_struct_to_datetime(parsed_time_struct)
             else:
                 message = f'Unable to convert the date "{date}" into a standard date format.'
-                raise RuntimeError(message) from e
+                raise ValueError(message) from e
 
     if convert_to_current_timezone:
         date = date_make_timezone_aware(date)
@@ -470,11 +473,11 @@ def time_as_float(time_string: str) -> float:
     try:
         hours, minutes = list(map(int, time_string.split(":")))  # parse given time string
     except ValueError as e:
-        message = f"Invalid time string, ensure that the argument is in HH:MM format. Provided value: {time_string}"
+        message = f'Invalid time string, ensure that the argument is in HH:MM format. Provided value: {time_string}'
         raise ValueError(message) from e
-
-    if hours > 23 or minutes > 59:
-        message = f"Invalid time string, should be between 00:00 and 23:59. Provided value: {time_string}"
-        raise ValueError(message)
+    else:
+        if hours > 23 or minutes > 59:
+            message = f'Invalid time string, should be between 00:00 and 23:59. Provided value: {time_string}'
+            raise ValueError(message)
 
     return hours + (minutes / 60)
