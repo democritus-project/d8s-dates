@@ -4,16 +4,18 @@ import datetime
 import functools
 import re
 import time
-from typing import List
+from typing import List, Optional, Union
 
 import dateutil.parser
 import maya
 import parsedatetime
 from d8s_hypothesis import hypothesis_get_strategy_results
+from d8s_math import number_zero_pad
+from d8s_strings import string_remove_from_end
 from d8s_timezones import pytz_timezone_object
 from hypothesis.strategies import dates, datetimes, timedeltas, times
-from d8s_strings import string_remove_from_end
-from d8s_math import number_zero_pad
+
+DateOrString = Union[datetime.date, datetime.datetime, str]
 
 DAY_NAMES = ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')
 DAY_ABBREVIATIONS = ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun')
@@ -77,7 +79,9 @@ def date_string_to_strftime_format(date_string):
     return date_string
 
 
-def date_parse(date, *, convert_to_current_timezone: bool = False):
+def date_parse(
+    date: DateOrString, *, convert_to_current_timezone: bool = False
+) -> Union[datetime.datetime, datetime.date, datetime.time]:
     """Parse the given date (can parse dates in most formats) (returns a datetime object)."""
     if isinstance(date, (datetime.date, datetime.time, datetime.datetime)):
         return date
@@ -104,7 +108,7 @@ def date_parse(date, *, convert_to_current_timezone: bool = False):
     if convert_to_current_timezone:
         date = date_make_timezone_aware(date)
 
-    return date
+    return date  # type: ignore
 
 
 def date_now(*, convert_to_current_timezone: bool = False, utc: bool = False):
@@ -424,7 +428,7 @@ def epoch_time_standardization(epoch_time):
     return epoch_time
 
 
-def epoch_to_date(epoch_time):
+def epoch_to_date(epoch_time) -> datetime.datetime:
     """Convert the epoch_time into a datetime."""
     epoch_time = float(epoch_time_standardization(epoch_time))
     return datetime.datetime.fromtimestamp(epoch_time)
@@ -481,3 +485,30 @@ def time_as_float(time_string: str) -> float:
             raise ValueError(message)
 
     return hours + (minutes / 60)
+
+
+@date_parse_first_argument
+def age(date_of_birth: DateOrString, as_of: Optional[DateOrString] = None):
+    """Find the age of a person with the given date_of_birth."""
+    # Set as_of to today if it doesn't exist already
+    if not as_of:
+        as_of = date_now()
+    else:
+        as_of = date_parse(as_of)  # type: ignore
+
+    # Get everything into date format
+    if isinstance(date_of_birth, datetime.datetime):
+        date_of_birth = date_of_birth.date()
+    if isinstance(as_of, datetime.datetime):
+        as_of = as_of.date()
+
+    try:
+        tmp = date_of_birth.replace(year=as_of.year)  # type: ignore
+    # ValueError is raised when date_of_birth is February 29 and the current year is not a leap year
+    except ValueError:
+        tmp = date_of_birth.replace(year=as_of.year, day=date_of_birth.day - 1)  # type: ignore
+
+    if tmp > as_of:  # type: ignore
+        return as_of.year - date_of_birth.year - 1  # type: ignore
+    else:
+        return as_of.year - date_of_birth.year  # type: ignore

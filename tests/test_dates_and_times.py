@@ -4,6 +4,7 @@ import time
 import pytest
 
 from d8s_dates import (
+    age,
     chrome_timestamp_to_epoch,
     date_2_string,
     date_convert_to_timezone,
@@ -45,6 +46,20 @@ from d8s_dates import (
 )
 
 """NOTE: WE ASSUME THAT THE SYSTEM RUNNING THE TESTS IS SET TO THE UTC TIMEZONE (BECAUSE THESE TESTS ARE RUNNING IN DOCKER (OR A CI SYSTEM))."""
+
+
+# these test values were taken from https://github.com/datadesk/latimes-calculate/blob/874c51ff611e5475a61fb7f8b8a8653f9bb6cec9/calculate/tests.py#L42
+@pytest.mark.parametrize(
+    "date_of_birth,as_of,expected_age",
+    [
+        (datetime.datetime(1982, 7, 22), datetime.date(2011, 12, 3), 29),
+        (datetime.datetime(1982, 7, 22), None, age(datetime.datetime(1982, 7, 22))),
+        (datetime.date(1984, 2, 29), datetime.date(2011, 12, 3), 27),
+        (datetime.date(2010, 12, 4), datetime.date(2011, 12, 3), 0),
+    ],
+)
+def test_age_docs_1(date_of_birth, as_of, expected_age):
+    assert age(date_of_birth, as_of=as_of) == expected_age
 
 
 @pytest.mark.parametrize(
@@ -254,7 +269,7 @@ def test_time_waste_1():
     a = time_now()
     time_waste(n=n)
     b = time_now()
-    assert n < b - a < n + 1
+    assert n < b - a < n + 1.5
 
 
 def test_time_is_1():
