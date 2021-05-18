@@ -5,3 +5,5 @@ importlib-metadata; python_version < '3.8'
 maya
 parsedatetime
 python-dateutil
+d8s-strings==0.*
+d8s-math==0.*

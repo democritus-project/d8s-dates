@@ -2,7 +2,6 @@ bandit
 black; python_version > '3.5'
 codecov
 d8s-file-system==0.*
-d8s-strings==0.*
 bump2version
 flake8
 flake8-cognitive-complexity
