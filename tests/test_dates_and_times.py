@@ -20,12 +20,14 @@ from d8s_dates import (
     date_now,
     date_parse,
     date_parse_first_argument,
+    date_range_days,
     date_second,
     date_string_to_strftime_format,
     date_to_epoch,
     date_to_iso,
     date_week_of_year,
     date_year,
+    datetime_date,
     datetime_examples,
     epoch_time_now,
     epoch_time_standardization,
@@ -46,6 +48,38 @@ from d8s_dates import (
 )
 
 """NOTE: WE ASSUME THAT THE SYSTEM RUNNING THE TESTS IS SET TO THE UTC TIMEZONE (BECAUSE THESE TESTS ARE RUNNING IN DOCKER (OR A CI SYSTEM))."""
+
+
+@pytest.mark.parametrize(
+    "date",
+    [
+        (datetime.datetime(2021, 1, 13)),
+        (datetime.date(2021, 1, 13)),
+        ('2021-01-13'),
+        ('2022-01-13 12:30:22'),
+        (1384885386.4429016),
+        (1540000000),
+        ('1384885386.4429016'),
+        ('1540000000'),
+    ],
+)
+def test_datetime_date__docs_1(date):
+    assert isinstance(datetime_date(date), datetime.date)
+
+
+@pytest.mark.parametrize(
+    "start_date,end_date,expected_length",
+    [
+        (datetime.datetime(2021, 1, 13), datetime.datetime(2021, 1, 13), 1),
+        (datetime.datetime(2021, 1, 13), datetime.datetime(2021, 1, 14), 2),
+        (datetime.datetime(2021, 1, 13), datetime.datetime(2021, 1, 15), 3),
+        (datetime.datetime(2021, 1, 13), datetime.datetime(2022, 1, 12), 365),
+        # 2020 is a leap year
+        (datetime.datetime(2020, 1, 13), datetime.datetime(2021, 1, 12), 366),
+    ],
+)
+def test_date_range_days__docs_1(start_date, end_date, expected_length):
+    assert len(tuple(date_range_days(start_date, end_date))) == expected_length
 
 
 # these test values were taken from https://github.com/datadesk/latimes-calculate/blob/874c51ff611e5475a61fb7f8b8a8653f9bb6cec9/calculate/tests.py#L42

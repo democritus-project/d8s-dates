@@ -4,7 +4,7 @@ import datetime
 import functools
 import re
 import time
-from typing import List, Optional, Union
+from typing import Iterable, List, Optional, Union
 
 import dateutil.parser
 import maya
@@ -79,7 +79,7 @@ def date_string_to_strftime_format(date_string):
     return date_string
 
 
-def date_parse(
+def date_parse(  # noqa: CCR001
     date: DateOrString, *, convert_to_current_timezone: bool = False
 ) -> Union[datetime.datetime, datetime.date, datetime.time]:
     """Parse the given date (can parse dates in most formats) (returns a datetime object)."""
@@ -483,6 +483,14 @@ def time_as_float(time_string: str) -> float:
 
 
 @date_parse_first_argument
+def datetime_date(date: DateOrString) -> datetime.date:
+    """Return a datetime.date version of the given date."""
+    if isinstance(date, datetime.datetime):
+        date = date.date()
+    return date  # type: ignore
+
+
+@date_parse_first_argument
 def age(date_of_birth: DateOrString, as_of: Optional[DateOrString] = None):
     """Find the age of a person with the given date_of_birth."""
     # Set as_of to today if it doesn't exist already
@@ -507,3 +515,17 @@ def age(date_of_birth: DateOrString, as_of: Optional[DateOrString] = None):
         return as_of.year - date_of_birth.year - 1  # type: ignore
     else:
         return as_of.year - date_of_birth.year  # type: ignore
+
+
+@date_parse_first_argument
+def date_range_days(start_date: DateOrString, end_date: DateOrString) -> Iterable[datetime.date]:
+    """Yield datetime.date objects representing each day between the given start and end dates (inclusive)."""
+    start_date = datetime_date(start_date)
+    end_date = datetime_date(end_date)
+
+    while True:
+        yield start_date  # type: ignore
+
+        start_date = start_date + datetime.timedelta(days=1)  # type: ignore
+        if start_date > end_date:  # type: ignore
+            break
