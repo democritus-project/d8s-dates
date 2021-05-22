@@ -302,11 +302,6 @@ def _maya_time_parse(date_object, *, convert_to_utc: bool = True):
     return maya_date
 
 
-def date_read(date_string, *, convert_to_current_timezone: bool = False):
-    """Read the given date (if possible)."""
-    return date_parse(date_string, convert_to_current_timezone=convert_to_current_timezone)
-
-
 def epoch_time_now():
     """Get the current epoch time."""
     return int(time.time())

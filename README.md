@@ -118,10 +118,6 @@ Once imported, you can use any of the functions listed below.
         """Convert a python time.struct_time object into a datetime object."""
     ```
   - ```python
-    def date_read(date_string, *, convert_to_current_timezone: bool = False):
-        """Read the given date (if possible)."""
-    ```
-  - ```python
     def epoch_time_now():
         """Get the current epoch time."""
     ```
