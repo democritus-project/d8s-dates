@@ -17,46 +17,47 @@ from hypothesis.strategies import dates, datetimes, timedeltas, times
 
 DateOrString = Union[datetime.date, datetime.datetime, str]
 
-DAY_NAMES = ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')
-DAY_ABBREVIATIONS = ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun')
+DAY_NAMES = ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+DAY_ABBREVIATIONS = ("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
 MONTH_NAMES = (
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
 )
-MONTH_ABBREVIATIONS = ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
+MONTH_ABBREVIATIONS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 
 STRF_DATA = (
-    {'patterns': DAY_ABBREVIATIONS, 'replacement': '%a'},
-    {'patterns': DAY_NAMES, 'replacement': '%A'},
-    {'patterns': MONTH_ABBREVIATIONS, 'replacement': '%b'},
-    {'patterns': MONTH_NAMES, 'replacement': '%B'},
-    {'regex': r'[0123]?[0-9]/%b/[0-9]{4}', 'replacement': '%d/%b/%Y'},
-    {'regex': r'[0-9]?[0-9]:[0-9]{2}:[0-9]{2}', 'replacement': '%X'},
-    {'regex': r'[01]?[0-9]/[0123]?[0-9]/[0-9]{3,4}', 'replacement': '%-m/%-d/%Y'},
-    {'regex': r'[01]?[0-9]/[0123]?[0-9]/[0-9]{2}', 'replacement': '%x'},
-    {'regex': r'[0-9]{4}-[01]?[0-9]-[0123]?[0-9]', 'replacement': '%Y-%-m-%-d'},
-    {'regex': r'\*[0-9]{3,6}', 'replacement': '*%f'},
-    {'regex': r'\.[0-9]{3,6}', 'replacement': '.%f'},
-    {'regex': r'\,[0-9]{3,6}', 'replacement': ',%f'},
-    {'patterns': [f'-{number_zero_pad(i, 4)}' for i in range(1200, -1, -100)], 'replacement': '%z'},
-    {'patterns': [f'+{number_zero_pad(i, 4)}' for i in range(1200, -1, -100)], 'replacement': '%z'},
-    {'patterns': [str(i) for i in range(3000, 1600, -1)], 'replacement': '%Y'},
-    {'patterns': [number_zero_pad(i, 2) for i in range(1, 31)], 'replacement': '%d'},
-    {'patterns': [str(i) for i in range(31, 0, -1)], 'replacement': '%-d'},
-    {'patterns': [number_zero_pad(i, 2) for i in range(0, 12)], 'replacement': '%m'},
-    {'patterns': [str(i) for i in range(12, 0, -1)], 'replacement': '%-m'},
-    {'patterns': [number_zero_pad(i, 2) for i in range(99, 0, -1)], 'replacement': '%y'},
-    {'patterns': ["AM", "PM"], 'replacement': '%p'},
+    {"patterns": DAY_ABBREVIATIONS, "replacement": "%a"},
+    {"patterns": DAY_NAMES, "replacement": "%A"},
+    {"patterns": MONTH_ABBREVIATIONS, "replacement": "%b"},
+    {"patterns": MONTH_NAMES, "replacement": "%B"},
+    {"regex": r"[0123]?[0-9]/%b/[0-9]{4}", "replacement": "%d/%b/%Y"},
+    {"regex": r"[0-9]?[0-9]:[0-9]{2}:[0-9]{2}", "replacement": "%X"},
+    {"regex": r"[01]?[0-9]/[0123]?[0-9]/[0-9]{3,4}", "replacement": "%-m/%-d/%Y"},
+    {"regex": r"[01]?[0-9]/[0123]?[0-9]/[0-9]{2}", "replacement": "%x"},
+    {"regex": r"[01]?[0-9]/[0123]?[0-9]/[0-9]", "replacement": "%-m/%-d/%Y"},
+    {"regex": r"[0-9]{4}-[01]?[0-9]-[0123]?[0-9]", "replacement": "%Y-%-m-%-d"},
+    {"regex": r"\*[0-9]{3,6}", "replacement": "*%f"},
+    {"regex": r"\.[0-9]{3,6}", "replacement": ".%f"},
+    {"regex": r"\,[0-9]{3,6}", "replacement": ",%f"},
+    {"patterns": [f"-{number_zero_pad(i, 4)}" for i in range(1200, -1, -100)], "replacement": "%z"},
+    {"patterns": [f"+{number_zero_pad(i, 4)}" for i in range(1200, -1, -100)], "replacement": "%z"},
+    {"patterns": [str(i) for i in range(3000, 1600, -1)], "replacement": "%Y"},
+    {"patterns": [number_zero_pad(i, 2) for i in range(1, 31)], "replacement": "%d"},
+    {"patterns": [str(i) for i in range(31, 0, -1)], "replacement": "%-d"},
+    {"patterns": [number_zero_pad(i, 2) for i in range(0, 12)], "replacement": "%m"},
+    {"patterns": [str(i) for i in range(12, 0, -1)], "replacement": "%-m"},
+    {"patterns": [number_zero_pad(i, 2) for i in range(99, 0, -1)], "replacement": "%y"},
+    {"patterns": ["AM", "PM"], "replacement": "%p"},
 )
 
 
@@ -71,10 +72,10 @@ def _handle_patterns(patterns: List[str], replacement: str, date_string: str) ->
 def date_string_to_strftime_format(date_string):
     """Predict the strftime format from the given date_string."""
     for data in STRF_DATA:
-        if data.get('patterns'):
-            date_string = _handle_patterns(data['patterns'], data['replacement'], date_string)
-        elif data.get('regex'):
-            date_string = re.sub(data['regex'], data['replacement'], date_string)
+        if data.get("patterns"):
+            date_string = _handle_patterns(data["patterns"], data["replacement"], date_string)
+        elif data.get("regex"):
+            date_string = re.sub(data["regex"], data["replacement"], date_string)
 
     return date_string
 
@@ -245,7 +246,7 @@ def time_examples(n=10, *, times_as_strings: bool = True):
         return time_objects
 
 
-def date_examples(n=10, *, dates_as_strings: bool = True, date_string_format: str = None):
+def date_examples(n=10, *, dates_as_strings: bool = True, date_string_format: Optional[str] = None):
     """Return n dates."""
     date_objects = hypothesis_get_strategy_results(dates, n=n)
     if dates_as_strings:
@@ -257,7 +258,7 @@ def date_examples(n=10, *, dates_as_strings: bool = True, date_string_format: st
         return date_objects
 
 
-def datetime_examples(n=10, *, datetimes_as_strings: bool = True, datetime_string_format: str = None):
+def datetime_examples(n=10, *, datetimes_as_strings: bool = True, datetime_string_format: Optional[str] = None):
     """Return n datetimes."""
     datetime_objects = hypothesis_get_strategy_results(datetimes, n=n)
     if datetimes_as_strings:
@@ -355,7 +356,7 @@ def time_until_slang(date):
 @date_parse_first_argument
 def date_to_utc(date):
     """Convert the given date to UTC. Assume that the given date is in the system's timezone and convert it to UTC."""
-    utc_date = date_convert_to_timezone(date, 'utc')
+    utc_date = date_convert_to_timezone(date, "utc")
     return utc_date
 
 
@@ -390,7 +391,7 @@ def date_in_future(date) -> bool:
 
 def time_is() -> str:
     """Time and money spent in helping men to do more for themselves is far better than mere giving. -Henry Ford"""
-    return '$'
+    return "$"
 
 
 @date_parse_first_argument
@@ -404,11 +405,11 @@ def date_to_iso(date, *, timezone_is_utc: bool = False, use_trailing_z: bool = F
 
     iso_format_date = date.isoformat()
 
-    if use_trailing_z and iso_format_date.endswith('+00:00'):
+    if use_trailing_z and iso_format_date.endswith("+00:00"):
         # remove the timezone from the end
-        iso_format_date = string_remove_from_end(iso_format_date, '+00:00')
+        iso_format_date = string_remove_from_end(iso_format_date, "+00:00")
         # add a 'Z'
-        iso_format_date = iso_format_date + 'Z'
+        iso_format_date = iso_format_date + "Z"
 
     return iso_format_date
 
@@ -418,8 +419,8 @@ def epoch_time_standardization(epoch_time):
     epoch_time_string = str(epoch_time)
     # if the given epoch time appears to include milliseconds (or some other level of precision)...
     # and does not have a decimal in it, add a decimal point
-    if len(epoch_time_string) > 10 and '.' not in epoch_time_string:
-        epoch_time = f'{epoch_time_string[:10]}.{epoch_time_string[10:]}'
+    if len(epoch_time_string) > 10 and "." not in epoch_time_string:
+        epoch_time = f"{epoch_time_string[:10]}.{epoch_time_string[10:]}"
     return epoch_time
 
 
@@ -432,7 +433,7 @@ def epoch_to_date(epoch_time) -> datetime.datetime:
 @date_parse_first_argument
 def date_day_of_week(date):
     """Return the day of the week on which the given date occurred."""
-    day_of_week = date.strftime('%A')
+    day_of_week = date.strftime("%A")
     return day_of_week
 
 
@@ -448,7 +449,7 @@ def date_week_of_year(date, *, sunday_is_first_day_of_week: bool = False):
 @date_parse_first_argument
 def date_to_epoch(date):
     """Convert a datetime stamp to epoch time."""
-    epoch_time = date.strftime('%s')
+    epoch_time = date.strftime("%s")
     return int(epoch_time)
 
 
@@ -463,7 +464,7 @@ def chrome_timestamp_to_epoch(chrome_timestamp):
 def time_waste(n=3):
     """If time be of all things the most precious, wasting time must be the greatest prodigality. -Benjamin Franklin"""
     time.sleep(n)
-    message = f'I just wasted {n} seconds of your life.'
+    message = f"I just wasted {n} seconds of your life."
     print(message)
 
 
@@ -472,11 +473,11 @@ def time_as_float(time_string: str) -> float:
     try:
         hours, minutes = list(map(int, time_string.split(":")))  # parse given time string
     except ValueError as e:
-        message = f'Invalid time string, ensure that the argument is in HH:MM format. Provided value: {time_string}'
+        message = f"Invalid time string, ensure that the argument is in HH:MM format. Provided value: {time_string}"
         raise ValueError(message) from e
     else:
         if hours > 23 or minutes > 59:
-            message = f'Invalid time string, should be between 00:00 and 23:59. Provided value: {time_string}'
+            message = f"Invalid time string, should be between 00:00 and 23:59. Provided value: {time_string}"
             raise ValueError(message)
 
     return hours + (minutes / 60)
