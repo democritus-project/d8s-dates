@@ -498,14 +498,14 @@ wheels = [
 
 [[package]]
 name = "d8s-timezones"
-version = "0.5.0"
+version = "0.6.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pytz" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/b1/97/8a3bf10a5240465de0ce530201ada38e33d50b90e65ff95a984badf859b9/d8s_timezones-0.5.0.tar.gz", hash = "sha256:01857ff1c9736f8678cc3081e38842de69f2ff97ab57c50b1666ea761777f1cc", size = 26526, upload-time = "2021-05-07T10:54:25.814Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/26/53/9eb1d43032cc5134e97f2869eb793b2574fb7403d8b493a798955e44c48a/d8s_timezones-0.6.0.tar.gz", hash = "sha256:7a5ef633e6dad4bf985c472baf774f5e6c58217a0c5d244e42b2dc33cdad3a38", size = 92749, upload-time = "2026-07-01T12:06:38.605Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/6c/a4/c97c4c379b57d0acf2a0a6b321d7c1c6c4ba737cf5abb1df84ec78e02ccd/d8s_timezones-0.5.0-py2.py3-none-any.whl", hash = "sha256:cfad74a7ebfa114490e71663665785789d43332f458226aaab321cfc71711ea8", size = 21812, upload-time = "2021-05-07T10:54:23.842Z" },
+    { url = "https://files.pythonhosted.org/packages/5d/92/5f37b117949b1e7c754b31245961554d079d6c8be93f2e7262357892c530/d8s_timezones-0.6.0-py3-none-any.whl", hash = "sha256:57309bfe9b271e56f22271e89a96197e010e2fb1e49943d5db3ab5dbe074db9e", size = 20531, upload-time = "2026-07-01T12:06:37.418Z" },
 ]
 
 [[package]]
